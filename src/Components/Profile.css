@@ -1,0 +1,30 @@
+.profile-item{
+	height: 340px;
+	width: 80%;
+	border: 1px solid grey;
+	border-radius: 4px;
+	margin: auto;
+	position: relative;
+	display: flex;
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	margin-top: 10%;
+}
+.profile-info{
+	margin: 20px;
+	margin-top: 40px;
+	height: 60%;
+	width: 40%;
+	border : 1px dotted grey;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+.profile-cart{
+	height: inherit;
+	width: 60%;
+
+}
+.profile-nav{
+	width: 100%;
+}
