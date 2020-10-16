@@ -10,17 +10,17 @@ import { Carousel } from 'react-responsive-carousel';
 class CarouselComponent extends Component {
     render() {
         return (
-          <div style={{ borderTop: "1px solid grey", margin : "auto", width : "60%"}}>
+          <div style={{ borderRight : '1px solid lightgrey', borderLeft : '1px solid lightgrey', margin : "auto", width : "60%"}}>
             <Carousel 
                       showStatus={false} 
                       infiniteLoop={true} 
                       autoPlay={true}
                       interval={3000}
-                      transitionTime={600}>
+                      transitionTime={400}>
             { ImagesForSlider.map((slide) =>
               <div style={{ cursor : "pointer" }}>
                     <img src={slide.url} />
-                    <h3 className="legend">{slide.heading}</h3>
+                    <h6 className="legend">{slide.heading}</h6>
               </div>
             )}
             </Carousel>

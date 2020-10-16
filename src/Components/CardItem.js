@@ -12,7 +12,7 @@ import Image from 'material-ui-image'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
 import Skeleton from '@material-ui/lab/Skeleton';
-
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
@@ -26,6 +26,9 @@ const useStyles = makeStyles({
   	height: 40,
 
   },
+  text : {
+    marginLeft : '4px'
+  },
   skeletonContent : {
   	height: 100,
 
@@ -35,30 +38,37 @@ const useStyles = makeStyles({
 export default function CardItem(props) {
   const classes = useStyles();
   const [fetching, setFetching] = useState(false)
-
+  const [item, setItem] = useState(props.CardItem)
+  console.log(props.Card)
   return (
     <Card className={classes.root}>
+
+    <Link style={{ color : 'black' }} to="/items">
       <CardActionArea>
         <Image 
-        src="https://res.cloudinary.com/du8f2setm/image/upload/v1602140488/samples/qwm3tmpodg9wtf4jwknh.jpg"/>
+        src="https://res.cloudinary.com/du8f2setm/image/upload/v1602752958/Stol_kcns02.jpg"/>
         <CardContent>
         {fetching ? (
         	<Skeleton className={classes.skeleton}/>
         	) : (
         		 <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            Стол кухонный 'Столен Прайм' 
           </Typography>
         )}
         {fetching ? (
         	<Skeleton className={classes.skeletonContent}/>
         	) : (
         <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            Стол кухонный , древесный , производство: Россия. Высота: 1 метр, Ширина : 2.5 метра
         </Typography>
         	)}	
         </CardContent>
       </CardActionArea>
+    </Link>
+    <Typography className={classes.text}
+                alignRight={true} 
+                color="primary" 
+                variant="subtitle2">55.500тг.- <span style={{ color : 'red' }}>7.200тг</span> = 43.300тг</Typography>
       <CardActions style={{ justifyContent : "space-between" }}>
         <Button size="small" 
         		color="primary"

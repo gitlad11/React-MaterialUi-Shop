@@ -10,6 +10,7 @@ import Sidebar from './Sidebar'
 import TypeFilter from './TypeFilter'
 import SizeFilter from './SizeFilter'
 import ColorFilter from './ColorFilter'
+import MoreData from './MoreItemsData'
 
 function MainContent(){
 	return (
@@ -46,18 +47,11 @@ function MainContent(){
   				  direction="row"
   				  justify="center"
   				  spacing={2}>
+  				 {MoreData.map((card) => (
   				<Grid item>
-					<CardItem/>
+					<CardItem Card={card} />
 				</Grid>
-				<Grid item>
-					<CardItem/>
-				</Grid>	
-				<Grid item>
-					<CardItem/>
-				</Grid>
-				<Grid item>
-					<CardItem/>
-				</Grid>			
+  				 ))} 		
 			</Grid>
 		</div>
 		</div>

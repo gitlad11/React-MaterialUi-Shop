@@ -1,4 +1,4 @@
-.favorite-box{
+.cart-box{
 	margin: auto;
 	margin-top: 50px;
 	height: 1000px;
@@ -6,7 +6,7 @@
 	border: 1px solid lightgrey;
 	background-color: #dedede;
 }
-.favorite-nav{
+.cart-nav{
 	background-color: #fff;
 	margin-top: 0px;
 	height: 50px;
