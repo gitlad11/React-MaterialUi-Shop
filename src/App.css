@@ -34,6 +34,7 @@ input:focus{
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
+
 .top-navigate{
   position: sticky;
   bottom: 0px;
@@ -76,3 +77,33 @@ button:hover{
 .user-card-title:hover{
   color: #4d1a7f; 
 }
+ .sidebar{
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
+  -webkit-animation-duration: 0.7s;
+  animation-duration: 0.7s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  }
+  @-webkit-keyframes slideInUp {
+  0% {
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+  visibility: visible;
+  }
+  100% {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+  }
+  }
+  @keyframes slideInUp {
+  0% {
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+  visibility: visible;
+  }
+  100% {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+  }
+  }

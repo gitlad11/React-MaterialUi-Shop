@@ -7,7 +7,9 @@ import { Carousel } from 'react-responsive-carousel';
 import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-
+import ShareIcon from '@material-ui/icons/Share';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
 
 
 class ItemContent extends React.Component{
@@ -56,6 +58,7 @@ class ItemContent extends React.Component{
              	<div style={{ height : "60%" }}>
              		<Typography style={{ maxHeight : "60px", overflowY : "hidden", borderBottom : '1px solid grey' }} gutterBottom variant="h5" component="h4">
             				{this.state.title}
+
           			</Typography>
              		<Typography align='left' style= {{  marginBottom : '50px' }}  color='textPrimary' gutterBottom variant="subtitle1" component="p">
             				{this.state.description}
@@ -104,7 +107,12 @@ class ItemContent extends React.Component{
                           color="primary"
                           startIcon={<ShoppingBasketIcon/>}>
                                   Заказать
-                          </Button>
+                  </Button>
+                  <Tooltip title="Поделиться">
+                                  <IconButton aria-label="Share" style={{margin : '5px'}} size="small">
+                                      <ShareIcon fontSize="medium" />
+                                   </IconButton>
+                    </Tooltip>
                 </div>
              </div>        
 			</div>
