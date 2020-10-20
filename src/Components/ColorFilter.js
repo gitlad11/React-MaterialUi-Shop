@@ -5,8 +5,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 
-function ColorFilter(){
+function ColorFilter(props){
 	const [anchorEl, setAnchorEl] = useState(null);
+	const onFilterC = props.onFilterC
 
 	const handleClick = (event) => {
     	setAnchorEl(event.currentTarget);
@@ -14,6 +15,9 @@ function ColorFilter(){
   	const handleClose = () => {
     setAnchorEl(null);
   	};
+  	const onChoose = (color) => {
+  		onFilterC(color)
+  	}
 	return (
 		<div>
 			<Button 
@@ -26,17 +30,17 @@ function ColorFilter(){
 				  anchorEl={anchorEl}
 				  open={Boolean(anchorEl)}
 				  onClose={handleClose}>
-				  <MenuItem>
+				  <MenuItem onClick={() => { onChoose('светлое') }}>
 				  	Светлое	
           		  </MenuItem>
-				  <MenuItem>
+				  <MenuItem onClick={() => { onChoose('темное') }}>
 				  	Тёмное
 				  </MenuItem>
-				  <MenuItem>
+				  <MenuItem onClick={() => { onChoose('древесное') }}>
 				  	Древесное
 				  </MenuItem>
-				  <MenuItem>
-				  	Другое
+				  <MenuItem onClick={() => { onChoose('любые варианты') }}>
+				  	Любое
 				  </MenuItem>
 			</Menu>
 		</div>

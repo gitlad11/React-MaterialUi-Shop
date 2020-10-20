@@ -20,14 +20,15 @@ function Input(props){
 							width : "inherit",
 							minWidth : "400px", 
 							border : "None",
-							borderBottom : "2px solid grey",
-							borderLeft : '2px solid lightgrey'
+							borderBottom : "1px solid grey",
+							borderLeft : '1px solid lightgrey'
 							}}/>
 			{icon == "email" ? (
-				<AlternateEmailOutlinedIcon style={{position : "absolute", "right" : "0px"}}/>
+				<AlternateEmailOutlinedIcon fontSize="small" style={{position : "absolute", "right" : "0px"}}/>
 				) : (
-				<VpnKeyOutlinedIcon style={{ position : "absolute", "right" : "0px"}}/>
+					<VpnKeyOutlinedIcon fontSize="small" style={{ position : "absolute", "right" : "0px"}}/>
 				)}
+
 		</div>
 		)
 }

@@ -12,7 +12,12 @@ import SizeFilter from './SizeFilter'
 import ColorFilter from './ColorFilter'
 import MoreData from './MoreItemsData'
 
-function MainContent(){
+function MainContent(props){
+	const items = props.items
+	const onFilter = props.onFilter
+	const onFilterC = props.onFilterC
+	const onSearch = props.onSearch
+
 	return (
 		<div className='main-content'>
 		<div className="main-preview">
@@ -35,11 +40,11 @@ function MainContent(){
 		<CarouselComponent/>
 		<div className='cards-content'>
 			<div className='cards-filter'>
-				<SearchInput/>
+				<SearchInput onSearch={onSearch}/>
 				<div className='filters'>
-					<TypeFilter/>
-					<SizeFilter/>
-					<ColorFilter/>
+					<TypeFilter onFilter={onFilter}/>
+					<SizeFilter onFilter={onFilter}/>
+					<ColorFilter onFilterC={onFilterC}/>
 				</div>
 			</div>
 		<div className='cards-list'>
@@ -47,9 +52,9 @@ function MainContent(){
   				  direction="row"
   				  justify="center"
   				  spacing={2}>
-  				 {MoreData.map((card) => (
+  				 {items.map((card) => (
   				<Grid item>
-					<CardItem Card={card} />
+					<CardItem item={card} />
 				</Grid>
   				 ))} 		
 			</Grid>

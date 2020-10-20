@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -37,38 +37,48 @@ const useStyles = makeStyles({
 
 export default function CardItem(props) {
   const classes = useStyles();
-  const [fetching, setFetching] = useState(false)
-  const [item, setItem] = useState(props.CardItem)
-  console.log(props.Card)
+  const [fetching, setFetching] = useState(true)
+
+  useEffect(() => {
+    setFetching(false)
+  },[])
+
+  const item = props.item
+
   return (
     <Card className={classes.root}>
 
-    <Link style={{ color : 'black' }} to="/items">
+    <Link style={{ color : 'black' }} to={'/items/' + item._id}>
       <CardActionArea>
         <Image 
-        src="https://res.cloudinary.com/du8f2setm/image/upload/v1602752958/Stol_kcns02.jpg"/>
+        src={item.preview}/>
         <CardContent>
         {fetching ? (
         	<Skeleton className={classes.skeleton}/>
         	) : (
         		 <Typography gutterBottom variant="h5" component="h2">
-            Стол кухонный 'Столен Прайм' 
+            {item.title}
           </Typography>
         )}
         {fetching ? (
         	<Skeleton className={classes.skeletonContent}/>
         	) : (
         <Typography variant="body2" color="textSecondary" component="p">
-            Стол кухонный , древесный , производство: Россия. Высота: 1 метр, Ширина : 2.5 метра
+            Стул в современном дизайне отлично подходит к любому интерьеру 
         </Typography>
         	)}	
         </CardContent>
       </CardActionArea>
     </Link>
-    <Typography className={classes.text}
+    {fetching ? (
+      <Skeleton className={classes.skeleton}/>
+      ) : (
+        <Typography className={classes.text}
                 alignRight={true} 
                 color="primary" 
-                variant="subtitle2">55.500тг.- <span style={{ color : 'red' }}>7.200тг</span> = 43.300тг</Typography>
+                variant="subtitle2">{item.price}тг.</Typography>
+
+      )}
       <CardActions style={{ justifyContent : "space-between" }}>
         <Button size="small" 
         		color="primary"

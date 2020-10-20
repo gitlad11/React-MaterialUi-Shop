@@ -10,44 +10,21 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ShareIcon from '@material-ui/icons/Share';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
+import Axios from 'axios'
 
+function ItemContent(props){
+    const item = props.item
+     console.log(item)
 
-class ItemContent extends React.Component{
-	constructor(props){
-		super(props)
-		this.state = {
-				"title" : "",
-				"preview" : "",
-				"description" : "",
-				"height" : "",
-				"width" : "",
-        "count" : "",
-				"images" : []
-			}
-	}
-	componentDidMount(){
-		this.setState({ title : this.props.item.title , 
-						preview : this.props.item.preview, 
-						description : this.props.item.description,
-						height : this.props.item.height,
-						width : this.props.item.width,
-            count : this.props.item.count,
-            price : this.props.item.price,
-						images : this.props.item.images,
-            sale : this.props.item.sale
-					})
-	}
-	render(){
-		console.log(this.state.slides)
-		return(
+      return(
 			<div className='item-box'>
 			<div style={{ boxShadow : '0 0 9px rgba(0,0,0,0.2)', width : '50%' }}>
-			<Carousel showThumbs={false}
+			<Carousel showThumbs={true}
 					  showStatus={false} 
                       infiniteLoop={true} 
                       autoPlay={true}
                       interval={3000}>
-               {this.state.images.map((slide) =>
+               {item.images.map((slide) =>
               <div style={{ cursor : "pointer" }}>
                     <img src={slide.url} />
               </div>
@@ -57,11 +34,11 @@ class ItemContent extends React.Component{
              <div className="item-info" >
              	<div style={{ height : "60%" }}>
              		<Typography style={{ maxHeight : "60px", overflowY : "hidden", borderBottom : '1px solid grey' }} gutterBottom variant="h5" component="h4">
-            				{this.state.title}
+            				{item.title}
 
           			</Typography>
              		<Typography align='left' style= {{  marginBottom : '50px' }}  color='textPrimary' gutterBottom variant="subtitle1" component="p">
-            				{this.state.description}
+            				{item.description}
           			</Typography>
           		</div>
           		<div style={{ marginLeft :  "20px", 
@@ -73,25 +50,25 @@ class ItemContent extends React.Component{
           					color='textPrimary' 
           					variant='subtitle2' 
           					component='h3'>
-          					Цвет : {this.state.color}
+          					Цвет : {item.color}
           			</Typography>
           			<Typography align='left'  
           					color='textPrimary' 
           					variant='subtitle2' 
           					component='h3'>
-          					Высота : {this.state.height}см.
+          					Высота : {item.height}см.
           			</Typography>
           			<Typography align='left'
           					color='textPrimary'
           					variant='subtitle2' 
           					component='h3'>
-          					Ширина : {this.state.width}см. 
+          					Ширина : {item.width}см. 
           			</Typography>
           			<Typography align='left'
           					color='textPrimary' 
           					variant='subtitle2' 
           					component='h3'>
-          					В наличии : {this.state.count}шт. 
+          					В наличии : {item.count}шт. 
           			</Typography>
                 </div>
           		</div>
@@ -99,9 +76,8 @@ class ItemContent extends React.Component{
                 <Typography 
                               alignRight={true} 
                               color="primary" 
-                              variant="subtitle2">{this.state.price}тг.- 
-                              <span style={{ color : 'red' }}>{this.state.sale}</span> = 
-                              {Number(this.state.price - this.state.sale)}00тг</Typography>
+                              variant="subtitle2">{item.price}тг.- 
+                              <span style={{ color : 'red' }}></span></Typography>
                   <Button style={{marginLeft : '4px' }}
                           size="medium"
                           color="primary"
@@ -117,6 +93,5 @@ class ItemContent extends React.Component{
              </div>        
 			</div>
 		)
-	}	
 }
 export default ItemContent

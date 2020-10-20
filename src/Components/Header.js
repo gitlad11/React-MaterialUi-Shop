@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import LoginPopUp from './LoginPopup'
 import RegisterPopup from './RegisterPopup'
 import UserCard from './UserCard'
+import Context from '../Context'
 
 
 
@@ -20,7 +21,8 @@ class Header extends React.Component{
 		this.onClose = this.onClose.bind(this)
 		this.state = {
 			openLogin : false,
-			openRegister : false
+			openRegister : false,
+			authUser : 0
 		}
 
 	}
@@ -33,8 +35,21 @@ class Header extends React.Component{
 	onClose(){
 		this.setState({ openLogin : false, openRegister : false })
 	}
+	componentDidMount(){
+		const Auth = localStorage.getItem("auth-user-email")
+
+		if(Auth){
+			this.setState({ authUser : Auth})
+		} else {
+			this.setState({ authUser : 0 })
+		}
+	}
 	render(){
+
+		const User = this.state.authUser
+
 		return(
+
 			<div className="header">
 				<div className='header-wrapper'>
 					<div className='navbar'>
@@ -55,7 +70,7 @@ class Header extends React.Component{
 										startIcon={<ShoppingCartOutlinedIcon/>}>Корзина</Button>
 							</Link>
 						</div>
-						<UserCard/>
+						{this.state.authUser == 0 ? (
 						<div className='btn-box'>
 						<Button onClick={this.onOpenLogin}
 								style={{ margin : "3px" }}
@@ -70,7 +85,10 @@ class Header extends React.Component{
 								color = "primary"
 								startIcon={<LockOpenOutlinedIcon/>}>
 								Регистрация</Button>
-						</div>
+						</div>	
+							) : (
+							<UserCard User={User} />
+							)}
 					</div>
 				</div>
 				<LoginPopUp open={this.state.openLogin}
@@ -78,6 +96,7 @@ class Header extends React.Component{
 				<RegisterPopup open={this.state.openRegister}
 							onClose={this.onClose} />
 			</div>
+
 			)
 	}
 }

@@ -9,6 +9,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Input from '@material-ui/core/Input';
 import DoneIcon from '@material-ui/icons/Done';
 import ProfileCart from './ProfileCart'
+import axios from 'axios';
+import Alert from '@material-ui/lab/Alert';
 
 export default class ProfileItem extends React.Component{
 	constructor(props){
@@ -20,9 +22,10 @@ export default class ProfileItem extends React.Component{
 	this.onSubmit = this.onSubmit.bind(this)
 	this.state = {
 		'change' : false,
+		'message' : '',
 		'email' : 'efimovi420@gmail.com',
 		'number' : '87058671152',
-		'password' : 'Mebelium'
+		'password' : 'password'
 	}
 	}
 	onProfileChange(){
@@ -42,7 +45,22 @@ export default class ProfileItem extends React.Component{
 		this.setState({password : event.target.value})
 	}
 	onSubmit(){
-		alert("submitted!")
+		const user = localStorage.getItem("auth-user-email")
+		const res = axios.post('/update', { 'email' : user, 'newEmail' : this.state.email, 'newNumber' : this.state.number },
+								{ headers:{
+										 	"Content-Type" : "application/json"
+										 	}
+										 }).then((response) => {
+										 		if(response.status == 200){
+										 			this.setState({ 'message' : 'Обновлено!' })
+										 		} 
+										 		if(response.status == 500){
+										 			this.setState({ 'message' : 'Не получилось обновить профиль!' })
+										 		} 
+										 	})
+	}
+	componentDidMount(){
+		this.setState({'email' : this.props.email, 'number' : this.props.number})
 	}
 	render(){
 		if(this.state.change){
@@ -113,8 +131,12 @@ export default class ProfileItem extends React.Component{
 								<CreateOutlinedIcon fontSize="small"/>
 							</IconButton>	
 						</Tooltip>
-
 					</div>
+					{this.state.message !== '' ? (
+							<Alert severity="info">{this.state.message}</Alert>
+							) : (
+							<div></div>
+							)}
 				</div>
 				<ProfileCart/>
 			</div>

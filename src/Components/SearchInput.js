@@ -1,15 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import IconButton from '@material-ui/core/IconButton';
 
 function SearchInput(props){
+	const onSearch = props.onSearch
+	const [query, setQuery] = useState('')
+
+	const onSearching = (event) => {
+		setQuery(event.target.value)
+		console.log(query)
+	}
+	const onChoose = () => {
+		onSearch(query)
+	}
 	return (
 		<div style={{ margin : "auto",
 					   
 					  position : "relative", 
 					  height : "35px", 
 					  width : "50%" }} >
-			<input 
+			<input onChange={onSearching}
+				   value={query}
 				   style={{ height : "inherit",
 				   width : "100%",
 				   border : "None",
@@ -19,7 +30,7 @@ function SearchInput(props){
 				   position  : "absolute" }}
 				   placeholder="Поиск по названию"
 				   />
-			<IconButton  style={{ position : "absolute", "right" : "0px" }}>
+			<IconButton onClick={() => { onChoose() }} style={{ position : "absolute", "right" : "0px" }}>
 				<SearchOutlinedIcon fontSize="medium" />
 			</IconButton>			   
 		</div>

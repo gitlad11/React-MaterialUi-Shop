@@ -12,18 +12,21 @@ import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined'
 import ReCAPTCHA from "react-google-recaptcha";
 import Alert from '@material-ui/lab/Alert';
 import Tooltip from '@material-ui/core/Tooltip';
+import axios from 'axios';
 
 
 function RegisterPopup(props){
 	const open = props.open
 	const onClose = props.onClose
 	const [email , setEmail] = React.useState('')
+	const [number, setNumber] = React.useState('')
 	const [password, setPassword] = React.useState('')
 	const [password2, setPassword2] = React.useState('')
 	const [valid, setValid] = React.useState(true)
 	const [show , setShow ] = React.useState(false)
 	const [verify , setVerify] = React.useState()
-
+	const [error, setError] = React.useState()
+	
 	const emailChange = (event) =>{
 		setEmail(event.target.value)
 	}
@@ -33,15 +36,35 @@ function RegisterPopup(props){
 	const passwordChange2 = (event) => {
 		setPassword2(event.target.value)
 	}
-	const onSubmit = (event) => {
+	const numberChange = (event) => {
+		setNumber(event.target.value)
+	}
+	const onSubmit = async (event) => {
 		event.preventDefault()
 		if(verify == undefined){
 			setVerify(false)
 		}
-		if(password === password2){
-			alert('matchs')
+		if(password === password2 && verify){
+			const res = await axios.post('/reg', { 'email' : email, 'number' : number, 'password' : password2 },
+											{ headers:{
+										 	"Content-Type" : "application/json"
+										 	}
+										 }).then((response) => {
+										 	if(response.status == 201 || response.data.token){
+										 		localStorage.setItem("auth-token" , response.data.token)
+										 		localStorage.setItem("auth-user-email", response.data.email)
+										 		window.location.reload()
+										 	}
+										 	if(response.status == 500){
+										 		console.log(response.data)
+										 		setError("Ошибка при регистрации")
+										 	}
+										 }).catch((error) => {
+										 	console.log(error)
+										 	setError("Произошла ошибка!")
+										 })
 		} else {
-			alert('not matchs')
+			setError('Пароли не совпадают!')
 		}
 	}
 	const onShow = () => {
@@ -76,6 +99,10 @@ function RegisterPopup(props){
 							   onChange={emailChange} label="" 
 							   placeholder="Email адресс"/>
 						<br/>
+						<DialogContentText>Ваш номер телефона</DialogContentText>
+						<Input onChange={numberChange} 
+							   label=""
+							   placeholder="Номер телефона"/>
 						<br/>	   
 						<DialogContentText>Придумайте Пароль</DialogContentText>
 						<Input icon="password"
@@ -131,7 +158,9 @@ function RegisterPopup(props){
         			{verify == false ?  (
         				 <Alert severity="error">Подтвердите что вы не робот</Alert>
         				) : ( <div></div> )}
-
+        			{error !== undefined ? (
+        				<Alert severity="error">{error}</Alert>
+        				) : (<div></div>)}
         			</Dialog>
 		</div>
 		)

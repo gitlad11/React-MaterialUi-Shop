@@ -10,10 +10,18 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.6.6",
+    "axios": "^0.20.0",
+    "bcrypt": "^5.0.0",
+    "cloudinary": "^1.23.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "json-server": "^0.16.2",
+    "jsonwebtoken": "^8.5.1",
     "material-ui-image": "^3.3.0",
+    "mongoose": "^5.10.9",
+    "mongoose-bcrypt": "^1.9.0",
+    "multer": "^1.4.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-google-recaptcha": "^2.1.0",
@@ -30,6 +38,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "http://localhost:3004",
   "browserslist": {
     "production": [
       ">0.2%",

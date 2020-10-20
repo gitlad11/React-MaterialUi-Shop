@@ -5,8 +5,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 
-function TypeFilter(){
+function TypeFilter(props){
 	const [anchorEl, setAnchorEl] = useState(null);
+	const onFilter = props.onFilter
 
 	const handleClick = (event) => {
     	setAnchorEl(event.currentTarget);
@@ -14,6 +15,9 @@ function TypeFilter(){
   	const handleClose = () => {
     setAnchorEl(null);
   	};
+  	const onChoose = (type) => {
+  		onFilter(type)
+  	}
 	return (
 		<div>
 			<Button 
@@ -26,13 +30,13 @@ function TypeFilter(){
 				  anchorEl={anchorEl}
 				  open={Boolean(anchorEl)}
 				  onClose={handleClose}>
-				  <MenuItem>
+				  <MenuItem onClick={ () => { onChoose('стул') }}>
 				  	Стулья	
           		  </MenuItem>
-				  <MenuItem>
+				  <MenuItem onClick={ () => { onChoose('стол') }}>
 				  	Столы
 				  </MenuItem>
-				  <MenuItem>
+				  <MenuItem onClick={ () => { onChoose('шкаф') }}>
 				  	Шкафы
 				  </MenuItem>
 			</Menu>

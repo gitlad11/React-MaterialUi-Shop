@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import history from "../history"
+import Logout from '../Logout'
 
-function UserCard(){
+
+function UserCard(props){
+  const user = props.User
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
     setAnchorEl(null);
@@ -19,6 +22,10 @@ function UserCard(){
   const onFavorite = () => {
     history.push('/favorite')
   }
+  const onLogout = () => {
+      Logout()
+  }
+
   return (
     <div style={{ minHeight : "40px",         
                   display : "flex",
@@ -40,7 +47,7 @@ function UserCard(){
                     "overflowX" : "hidden",
                     "breakWord" : "all" }}>
           <b className="user-card-title" 
-             style={{ color : "#1a307f", fontSize : "14px", "breakWord" : "all" }}>efimovi420@gmail.com</b>
+             style={{ color : "#1a307f", fontSize : "14px", "breakWord" : "all" }}>{user}</b>
         </div>
         <div style={{ justifyContent : "center", 
         "TextAlign" : "center", 
@@ -57,7 +64,7 @@ function UserCard(){
           onClose={handleClose}>
           <MenuItem onClick={onProfile}>Профиль</MenuItem>
           <MenuItem onClick={onFavorite}>Избранное</MenuItem>
-          <MenuItem onClick={handleClose}>Выйти</MenuItem>
+          <MenuItem onClick={onLogout}>Выйти</MenuItem>
         </Menu>
         </div>  
     </div>

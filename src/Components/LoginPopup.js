@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
+import Alert from '@material-ui/lab/Alert';
+import axios from 'axios';
 
 function LoginPopup(props){
 	const open = props.open
@@ -16,6 +18,7 @@ function LoginPopup(props){
 	const [email, setEmail] = React.useState('')
 	const [password, setPassword] = React.useState('')
 	const [show , setShow ] = React.useState(false)
+	const [error, setError] = React.useState()
 
 	const emailChange = (event) => {
 		setEmail(event.target.value)
@@ -35,7 +38,23 @@ function LoginPopup(props){
 
 	const onSubmit = (event) => {
 		event.preventDefault()
-		alert(password)
+		const res = axios.post('/login', { 'email' : email, 'password' : password },
+								{ headers:{
+										 	"Content-Type" : "application/json"
+										 	}
+										 }).then((response) => {
+										 	if(response.status == 200 || response.data.token){
+										 		localStorage.setItem("auth-token" , response.data.token)
+										 		localStorage.setItem("auth-user-email", response.data.email)
+										 		window.location.reload()
+										 	}
+										 	if(response.status == 401 || response.data.error){
+										 		setError(response.data.error)
+										 	}  
+										 }).catch((error) => {
+										 	setError('Произошла ошибка!')
+										 })
+		
 	}
 	return(
 		<div style={{ minWidth : "400px", minHeight : "500px" }}>
@@ -86,6 +105,9 @@ function LoginPopup(props){
           			</Button>
         			</DialogActions>
         			<br/>
+        			{error !== undefined ? (
+        				<Alert severity="error">{error}</Alert>
+        				) : (<div></div>)}
 					</Dialog> 
 		</div>
 	)
